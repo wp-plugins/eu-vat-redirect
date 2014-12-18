@@ -12,64 +12,68 @@ Allows you to set buy links differently for visitors from the EU and outside the
 == Description ==
 EU VAT Redirect allows sellers of digital products to send users in the EU to one payment provider, and those outside the EU to another.
 
-From 2015 sellers of digital products to customers in the EU are required to charge VAT on the product\'s purchase price, with the VAT rate being determined by the location of the customer, and report it regularly.  Many retailers will handle this by using a payment processor that handles the VAT calculation and reporting.  However such processors have far higher transaction fees than other \"standard\" processors such as PayPal.
+From 2015 sellers of digital products to customers in the EU are required to charge VAT on the product's purchase price, with the VAT rate being determined by the location of the customer, and report it regularly.  Many retailers will handle this by using a payment processor that handles the VAT calculation and reporting.  However such processors have far higher transaction fees than other "standard" processors such as PayPal.
 
-The plugin is used in place of the URL in \"buy now\" links.  When the user selects the \"buy now\" button, the user\'s IP address is checked and EU VAT Redirect determines whether a user is in the EU or outside it.  Users in the EU can be sent to a payment processor that handles the VAT calculation, whilst those outside the EU can be sent to a cheaper processor, which doesn\'t.
+The plugin is used in place of the URL in "buy now" links.  When the user selects the "buy now" button, the user's IP address is checked and EU VAT Redirect determines whether a user is in the EU or outside it.  Users in the EU can be sent to a payment processor that handles the VAT calculation, whilst those outside the EU can be sent to a cheaper processor, which doesn't.
 
 
 Features include:
 
 * Treat UK as VAT free.  Business in the UK who are below the VAT threshold, are not required to charge VAT on digital purchases in certain circumstances.  Those UK business which this applies to can select this option, and send all UK users to the cheaper payment processor.
-* \"Confirm my location\" page - when enabled, an interstitial page is shown to any user EU VAT Redirect determines is outside of the EU.  The page asks the user to confirm if they are in the EU or not, before taking them to the correct payment processor.
-* Ability to set custom URLs for \"buy now\" page, and the \"Confirm my Location\" page.
+* "Confirm my location" page - when enabled, an interstitial page is shown to any user EU VAT Redirect determines is outside of the EU.  The page asks the user to confirm if they are in the EU or not, before taking them to the correct payment processor.
+* Ability to set custom URLs for "buy now" page, and the "Confirm my Location" page.
 
 This product includes GeoLite data created by MaxMind, available from http://www.maxmind.com.
 
 == Installation ==
 Basic installation is as follows:
 
-1) Install and activate the plugin in the normal way.  When activated, EU VAT Redirect will create two new pages called \"EU VAT Redirect\" and \"Confirm Your Location\".  
+1) Install and activate the plugin in the normal way.  When activated, EU VAT Redirect will create two new pages called "EU VAT Redirect" and "Confirm Your Location".  
 
-2) Go to \'Settings\' then \'EU VAT Redirect\' to setup the plugin.  You will need the URLs for the two different payment processors you wish to use, for example, the buy button link to PayPal or FormSpring. You can also set other options on this page.
+2) Go to 'Settings' then 'EU VAT Redirect' to setup the plugin.  You will need the URLs for the two different payment processors you wish to use, for example, the buy button link to PayPal or FormSpring. You can also set other options on this page.
 
-3) In your \"Buy Now\" links, change the URL to the Wordpress shortcode [euvat_locationdetect].  When published, this will provide a link to a page (called \'location-detect\' by default) where the user\'s IP address is checked, and the user is then redirected to the right payment processor.
+3) In your "Buy Now" links, change the URL to the Wordpress shortcode [euvat_locationdetect].  When published, this will provide a link to a page (called 'location-detect' by default) where the user's IP address is checked, and the user is then redirected to the right payment processor.
 
-And that\'s it.  
+And that's it.  
 
 
 == Frequently Asked Questions ==
-How reliable is the location detection?
+Q. How reliable is the location detection?
 
 EU VAT Redirect uses the GeoLite database, created by MaxMind (http://www.maxmind.com), which they state is 99.8% accurate.  No location detection will ever be 100% accurate, however GeoLite offers a very high level of accuracy.
 
-Will the country detection slow down my website?
+Q. Will the country detection slow down my website?
 
 The country detection is only done when the user clicks on your buy link.  To ensure the detection is performed as quickly as possible, the database is included in the plugin.  No external websites are called in order to do the country detection.
 
-Can I put the buy link anywhere on my site?
+Q. Can I put the buy link anywhere on my site?
 
 The buy link is a shortcode ([euvat_locationdetect]), so can be placed anywhere the shortcode can be placed.  
 
-Does the country detection support IPV6?
+Q. Does the country detection support IPV6?
 
 Yes.
 
-How often is the GeoLite database updated?
+Q. How often is the GeoLite database updated?
 
 The database included in this plugin is a static snapshot of the GeoLite database.  The plugin does not currently have the ability to automatically update the database.  This will be added in a future release.  Until this feature is added, the database will be updated at regular intervals as part of plugin updates.
 
-Can I customise the \"Confirm Location\" page?
+Q. Can I customise the "Confirm Location" page?
 
-Yes, absolutely.  This page is generated using the normal Page template in Wordpress, and you can change everything on it.  The two links are generated by shortcodes - [euvat_non_eu_url] and [euvat_eu_url].  You can customise the link text for each of these shortcodes, by using the text attribute - e.g. [euvat_non_eu_url text=\"Your link text for non-EU users\"], and [euvat_non_eu_url text=\"Your link text for EU users\"] 
+Yes, absolutely.  This page is generated using the normal Page template in Wordpress, and you can change everything on it.  The two links are generated by shortcodes - [euvat_non_eu_url] and [euvat_eu_url].  You can customise the link text for each of these shortcodes, by using the text attribute - e.g. [euvat_non_eu_url text="Your link text for non-EU users"], and [euvat_non_eu_url text="Your link text for EU users"] 
 
-Could I use this plugin to block visitors in the EU from buying my product?
+Q. Could I use this plugin to block visitors in the EU from buying my product?
 
 This is possible.  To do so, create a page in Wordpress that you wish to show EU visitors, explaining why they are unable to buy your product.  Then place URL of the page in the settings page in the box for EU customers.  Note that if you do this, visitors in the EU will only see a message after they have followed your buy link.
 
-Are there any restrictions on using this plugin?
+Q. Is there a way to check how the plugin works for a particular country?
+
+Yes.  You can do this by providing an IP address directly to the Country Detect page, like this:  http://name-of-your-site.com/location-detect?ip=[ipaddress], where [ipaddress] is an IP address for a particular website.  You can find an IP address for any website using an online service like http://ip-lookup.net/domain.php, which will convert a website domain name into an IP address for you.  In the plugin examples folder is a list of IP addresses for each EU country that we used for testing.  
+
+Q. Are there any restrictions on using this plugin?
 
 No.  You are free to use this plugin however you wish, without charge.  
 
-Can you add a new feature to do X?
+Q. Can you add a new feature to do X?
 
-We\'re always interested in finding out what people would find useful for this plugin, and we will review all feature requests.
+We're always interested in finding out what people would find useful for this plugin, and we will review all feature requests.
