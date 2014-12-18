@@ -30,7 +30,7 @@ Features include:
 
 * Treat UK as VAT free.  Business in the UK who are below the VAT threshold are not required to charge VAT to UK buyers on digital purchases.  Those UK business to which this applies to can select this option, and send all UK users to the cheaper payment processor (i.e. treat them as non-EU buyers).
 
-* "Confirm my location" page - when enabled, an interstitial (‘gateway') page is shown to any user EU VAT Redirect determines has an IP address outside of the EU.  The page asks the user to confirm if they are in the EU or not by selecting from a choice of two links, before directing them to the correct payment processor.
+* "Confirm my location" page - when enabled, an interstitial ('gateway') page is shown to any user EU VAT Redirect determines has an IP address outside of the EU.  The page asks the user to confirm if they are in the EU or not by selecting from a choice of two links, before directing them to the correct payment processor.
 
 * Ability to set custom URLs for "buy now" page, and the "Confirm my Location" page.
 
