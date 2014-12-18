@@ -4,7 +4,7 @@ Tags: vatmoss, European Union, VAT, geo location, payment processors
 Donate link: http://andrewbowden.me.uk/donate
 Requires at least: 3.5
 Tested up to: 4.0.1
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -208,6 +208,10 @@ We tested the plugin using a range of IP addresses from EU and non-EU countries.
 
 == Changelog ==
 
+= 1.0.2 = 
+
+* Correcting typo in readme.txt
+
 = 1.0.1 =
 
 * Updates to readme.txt to improve clarity.
@@ -217,6 +221,10 @@ We tested the plugin using a range of IP addresses from EU and non-EU countries.
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.0.2 =
+
+Improvement to documentation.
 
 = 1.0.1 =
 
