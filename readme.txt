@@ -214,22 +214,10 @@ We tested the plugin using a range of IP addresses from EU and non-EU countries.
 
 = 1.0 =
 
-
 * Initial release
 
 == Upgrade Notice ==
 
 = 1.0.1 =
 
-
-Improvement to documentation. works for a particular country?
-
-Yes.  You can do this by providing an IP address directly to the Country Detect page, like this:  http://name-of-your-site.com/location-detect?ip=[ipaddress], where [ipaddress] is an IP address for a particular website.  You can find an IP address for any website using an online service like http://ip-lookup.net/domain.php, which will convert a website domain name into an IP address for you.  In the plugin examples folder is a list of IP addresses for each EU country that we used for testing.  
-
-Q. Are there any restrictions on using this plugin?
-
-No.  You are free to use this plugin however you wish, without charge.  
-
-Q. Can you add a new feature to do X?
-
-We're always interested in finding out what people would find useful for this plugin, and we will review all feature requests.
+Improvement to documentation.
