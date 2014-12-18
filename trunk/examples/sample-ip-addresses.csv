@@ -1,0 +1,31 @@
+Country Code,Country Name,Sample Website,IP address for site,
+BE,Belgium,belgium.be,193.191.245.4,// $ipaddress='193.191.245.4' ; 
+BG,Bulgaria,bulgariatravel.org,82.119.76.123,// $ipaddress='82.119.76.123' ; 
+CZ,Czech Republic,czech.cz,81.95.110.43,// $ipaddress='81.95.110.43' ; 
+DK,Denmark,denmark.dk,213.174.72.92 ,// $ipaddress='213.174.72.92 ' ; 
+DE,Germany,bahn.de,81.200.198.6,// $ipaddress='81.200.198.6' ; 
+EE,Estonia,estonia.eu,195.80.116.179,// $ipaddress='195.80.116.179' ; 
+IE,Ireland,rte.ie,89.207.56.140,// $ipaddress='89.207.56.140' ; 
+GR,Greece,visitgreece.gr,84.205.246.215,// $ipaddress='84.205.246.215' ; 
+ES,Spain,spain.info,193.106.178.38,// $ipaddress='193.106.178.38' ; 
+FR,France,uk.rendezvousenfrance.com,178.33.110.147,// $ipaddress='178.33.110.147' ; 
+HR,Croatia,croatia.hr,212.92.195.10,// $ipaddress='212.92.195.10' ; 
+IT,Italy,italia.it,77.73.57.78,// $ipaddress='77.73.57.78' ; 
+CY,Cyprus,cyprus.gov.cy,212.31.118.26,// $ipaddress='212.31.118.26' ; 
+LV,Latvia,mk.gov.lv,195.244.155.182,// $ipaddress='195.244.155.182' ; 
+LT,Lithuania,lrv.lt,195.182.95.147,// $ipaddress='195.182.95.147' ; 
+LU,Luxembourg,gouvernement.lu,194.154.200.74,// $ipaddress='194.154.200.74' ; 
+HU,Hungary,kormany.hu,195.228.130.17,// $ipaddress='195.228.130.17' ; 
+MT,Malta,gov.mt,217.71.177.213,// $ipaddress='217.71.177.213' ; 
+NL,Netherlands,government.nl,178.22.85.24,// $ipaddress='178.22.85.24' ; 
+AT,Austria,bka.gv.at,78.41.145.34,// $ipaddress='78.41.145.34' ; 
+PL,Poland,premier.gov.pl,46.28.14.4,// $ipaddress='46.28.14.4' ; 
+PT,Portugal,portugal.gov.pt,193.47.185.59,// $ipaddress='193.47.185.59' ; 
+RO,Romania,gov.ro,85.120.75.150,// $ipaddress='85.120.75.150' ; 
+SI,Slovenia,vlada.si,84.39.223.151,// $ipaddress='84.39.223.151' ; 
+SK,Slovakia,vlada.gov.sk,195.49.188.138,// $ipaddress='195.49.188.138' ; 
+FI,Finland,valtioneuvosto.fi,145.247.195.5,// $ipaddress='145.247.195.5' ; 
+SE,Sweden,svt.se,194.15.212.134,// $ipaddress='194.15.212.134' ; 
+GB,United Kingdom,bbc.co.uk,212.58.246.104,// $ipaddress='212.58.246.104' ; 
+,,,,
+US,USA,abc.com,199.181.132.250,// $ipaddress='199.181.132.250' ; 
