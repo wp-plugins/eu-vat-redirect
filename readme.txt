@@ -12,11 +12,11 @@ Allows you to set buy links differently for visitors from the EU and outside the
 == Description ==
 EU VAT Redirect allows sellers of digital products to send users with an IP address in the EU to one payment provider, and those with an IP address outside the EU to another.
 
-From 2015 sellers of digital products to customers in the EU are required to charge VAT on the product's purchase price, with the VAT rate being determined by the location of the customer, and report it regularly.  Sellers may avoid VAT registration by using a reseller / 3rd party intermediary to process the sale on their behalf and handle VAT calculation and reporting; however, this means that VAT is applied on all EU sales including sales to customers in the seller’s own country, which may otherwise have been exempt from VAT being added. In addition   each sale through the 3rd party reseller may be subject to higher transaction fees than payment  processors which do not handle VAT reporting. This is obviously detrimental if only a small percentage of the sales are to customers in the EU.
+From 2015 sellers of digital products to customers in the EU are required to charge VAT on the product's purchase price, with the VAT rate being determined by the location of the customer, and report it regularly.  Sellers may avoid VAT registration by using a reseller / 3rd party intermediary to process the sale on their behalf and handle VAT calculation and reporting; however, this means that VAT is applied on all EU sales including sales to customers in the seller's own country, which may otherwise have been exempt from VAT being added. In addition   each sale through the 3rd party reseller may be subject to higher transaction fees than payment  processors which do not handle VAT reporting. This is obviously detrimental if only a small percentage of the sales are to customers in the EU.
 
 This plugin enables the seller to sell the same product through both a reseller that applies VAT and VAT reporting, and a payment processor which does not, and redirect customers to buy through the most appropriate 3rd party.
 
-The plugin is used in place of the URL in "buy now" links.  When the user selects the "buy now" button, the user's IP address is checked and EU VAT Redirect determines whether a user’s IP address is in the EU or outside it.  Users with an IP address in the EU can be sent to a reseller/intermediary that confirms and identifies the customer’s country of residence, adds VAT and handles the VAT calculation, whilst those with an IP address outside the EU can be sent to a cheaper payment processor, which does not add VAT.
+The plugin is used in place of the URL in "buy now" links.  When the user selects the "buy now" button, the user's IP address is checked and EU VAT Redirect determines whether a user's IP address is in the EU or outside it.  Users with an IP address in the EU can be sent to a reseller/intermediary that confirms and identifies the customer's country of residence, adds VAT and handles the VAT calculation, whilst those with an IP address outside the EU can be sent to a cheaper payment processor, which does not add VAT.
 
 Customers with an IP address outside the EU can be further checked by: 
 
@@ -30,7 +30,7 @@ Features include:
 
 * Treat UK as VAT free.  Business in the UK who are below the VAT threshold are not required to charge VAT to UK buyers on digital purchases.  Those UK business to which this applies to can select this option, and send all UK users to the cheaper payment processor (i.e. treat them as non-EU buyers).
 
-* "Confirm my location" page - when enabled, an interstitial (‘gateway’) page is shown to any user EU VAT Redirect determines has an IP address outside of the EU.  The page asks the user to confirm if they are in the EU or not by selecting from a choice of two links, before directing them to the correct payment processor.
+* "Confirm my location" page - when enabled, an interstitial (‘gateway') page is shown to any user EU VAT Redirect determines has an IP address outside of the EU.  The page asks the user to confirm if they are in the EU or not by selecting from a choice of two links, before directing them to the correct payment processor.
 
 * Ability to set custom URLs for "buy now" page, and the "Confirm my Location" page.
 
@@ -66,9 +66,9 @@ The country detection is only done when the user clicks on your buy link.  To en
 
 The buy link is a shortcode ([euvat_locationdetect]), so can be placed anywhere in a content field / body of a page.  
 
-= Q. What happens if the plugin can’t determine the country the user is in? =
+= Q. What happens if the plugin can't determine the country the user is in? =
 
-The plugin will err on the side of caution, and assume the customer is in the EU.  This will allow the payment processor to determine the user’s location using the additional information they have access to, such as billing addresses and bank details.
+The plugin will err on the side of caution, and assume the customer is in the EU.  This will allow the payment processor to determine the user's location using the additional information they have access to, such as billing addresses and bank details.
 
 = Q. How often is the GeoLite database updated? =
 
