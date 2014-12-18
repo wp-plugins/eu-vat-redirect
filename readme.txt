@@ -140,7 +140,7 @@ We tested the plugin using a range of IP addresses from EU and non-EU countries.
 
 == Changelog ==
 
-= 1.0.2 = 
+= 1.0.3 = 
 
 * Fixing formatting errors in readme.txt
 
@@ -155,7 +155,7 @@ We tested the plugin using a range of IP addresses from EU and non-EU countries.
 
 == Upgrade Notice ==
 
-= 1.0.2 = 
+= 1.0.3 = 
 
 * Fixing formatting errors in readme.txt
 
