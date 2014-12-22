@@ -3,7 +3,7 @@
  * Plugin Name: EU VAT Redirect
  * Plugin URI: http://andrewbowden.me.uk/wordpress/eu-vat-redirect
  * Description: Allows you to set buy links differently for visitors from the EU and outside the EU, for VAT purposes.
- * Version: 1.0
+ * Version: 1.0.4
  * Author: Andrew Bowden
  * Author URI: http://andrewbowden.me.uk/
  * License: GPL2 or later
@@ -230,7 +230,7 @@ add_shortcode( 'euvat_eu_url', 'euvat_eu_url' );
 
 add_action( 'admin_menu', 'euvat_admin_menu' );
 function euvat_admin_menu() {
-	add_options_page( 'EU VAT Redirect', 'EU VAT Redirect', 'manage-options','eu-vat-redirect', 'euvat_admin_options' );
+	add_options_page( 'EU VAT Redirect', 'EU VAT Redirect', 'manage_options','eu-vat-redirect', 'euvat_admin_options' );
 }
 
 function euvat_admin_options() {
