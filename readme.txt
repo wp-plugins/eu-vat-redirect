@@ -4,7 +4,7 @@ Tags: vatmoss, EUvat, European Union, VAT, tax, geo location, payment processors
 Donate link: http://andrewbowden.me.uk/donate
 Requires at least: 3.5
 Tested up to: 4.0.1
-Stable tag: 1.0.4
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -141,6 +141,11 @@ We tested the plugin using a range of IP addresses from EU and non-EU countries.
 
 == Changelog ==
 
+= 1.1.0 =
+
+* Adds support for multiple products
+* Fixes issue where uninstall script did not work on single site Wordpress installls.
+
 = 1.0.4 =
 
 * Fixes issue where settings page was not being seen for some users.
@@ -155,10 +160,14 @@ We tested the plugin using a range of IP addresses from EU and non-EU countries.
 
 = 1.0 =
 
-
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.1.0 =
+
+* Adds support for multiple products - note that this is a big change.  It is advised that you take note of your previous settings before upgrade as a precaution.
+* Fixes issue where uninstall script did not work on single site Wordpress installls.
 
 = 1.0.4 =
 
