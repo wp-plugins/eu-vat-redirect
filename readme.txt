@@ -139,6 +139,10 @@ You may wish to set your prices in your reseller account to be inclusive of VAT,
 
 We tested the plugin using a range of IP addresses from EU and non-EU countries.  
 
+= Q. I click "Add a product" but nothing happens.  What's wrong? =
+
+Are you using Multisite, and the Wordpress MU Domain Mapping plugin?  If so, a flaw in this plugin is the likely cause.  The problem (documented at http://davoscript.com/blog/desarrollo/wordpress-mu-domain-mapping-plugin-and-multisite-mu-plugins/) affects many plugins.   This is, unfortunately, outside our control.
+
 == Screenshots ==
 
 1. Flow diagram showing how EU VAT Redirect works.
