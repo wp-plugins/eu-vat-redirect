@@ -1,0 +1,66 @@
+.euvat-settingsbox {
+	min-width : 700px ; 
+	border : 1px solid #E5E5E5 ;
+	background : #fff ;
+	color : #000 ;
+	overflow: auto ;
+	padding : 5px 10px ;
+	margin-bottom : 1em ;
+}
+.euvat-settingsbox h2 {
+	font-size : 14px ; 
+	margin : 0 -10px 0.5em ;
+	padding : 0 10px 5px ;
+	font-weight : bold ;
+	border-bottom : 1px solid #eee ;
+}
+.euvat-settingsbox p {
+	margin : 0 0 1em ; 
+}
+.euvat-settingsbox h3 {
+	margin : 0 ;
+	font-size : 13px ; 
+}
+.euvat-settingsbox .euvat-productitem-item {
+	font-size : 13px ;
+	margin : 0.5em 0 ;
+	width : 15% ;
+	float : left ;
+	box-sizing : border-box ;
+	padding-right: 2% ; 
+}
+.euvat-settingsbox label,.euvat-settingsbox span.euvat-label { 
+	width : 120px ; 
+	display : inline-block ;
+}
+div.euvat-productitem-meta {
+	width : 80% ; 
+	margin : 0 0 1em 0 ;
+	float : left ;
+}
+p.euvat-delete-button {
+	margin : 0.5em 0 !important ;
+}
+.euvat-settingsbox div.euvat-productitem-block p {
+	margin : 0 0 0.5em ;
+}
+#euvat-addlinkbutton {
+	clear : both ;
+	display : inline-block ;
+	margin-bottom : 1em ;
+}
+	
+
+.euvat-button {
+	text-decoration : underline ;
+	color : #0074A2 ;
+	background : transparent ;
+}
+.euvat-button:hover {
+	cursor : pointer ; 
+}
+.euvat-productitem {
+	margin-bottom : 1em ;
+	clear : both ;
+}
+
