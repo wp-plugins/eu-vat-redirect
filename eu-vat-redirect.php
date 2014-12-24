@@ -3,7 +3,7 @@
  * Plugin Name: EU VAT Redirect
  * Plugin URI: http://andrewbowden.me.uk/wordpress/eu-vat-redirect
  * Description: Allows you to set buy links differently for visitors from the EU and outside the EU, for VAT purposes.
- * Version: 1.0
+ * Version: 1.1.0
  * Author: Andrew Bowden
  * Author URI: http://andrewbowden.me.uk/
  * License: GPL2 or later
@@ -35,9 +35,13 @@ Things to do
 1) check uninstall script works
 2) document
 3) seeing as we have the ID for the redirect page, we probably should work out the slug from than at all times (i.e. on the settings page), rather than store a variable
-4) split out into seperate files for clarity
+4) split out into seperate files for clarity 
 */
 defined('ABSPATH') or die("Your name's not down, you're not coming in");
+
+// Admin page contained in seperate file
+include_once dirname( __FILE__ ) . '/eu-vat-redirect-admin.php';
+
 
 // URL Validator
 function euvat_validateurl($url) {
@@ -68,6 +72,22 @@ function euvat_ipdetect() {
         }
 	return $userIP ;
 }
+
+// Check query string for product
+function euvat_which_product() {
+	if(isset($_REQUEST['product'])) {
+		$product = sanitize_text_field($_REQUEST['product']) ;
+	} else {
+		// If no product set, maybe someone who had the original "one product only" version of the plugin.  
+		// If so, use product = init exists
+		$product = "init" ;
+	}
+	return $product ;
+}
+
+
+
+
 
 // Country detection script
 function euvat_get_country() {
@@ -104,6 +124,8 @@ function euvat_get_country() {
 
 
 
+
+
 // REDIRECT page
 add_action('template_redirect','euvat_redirect_template');
 function euvat_redirect_template($template) {
@@ -113,34 +135,39 @@ function euvat_redirect_template($template) {
 	$opt_locationslugid = get_option("euvat_locationslug_id") ;
 	if ($opt_locationslugid && is_page($opt_locationslugid)) {
 		$countrycode = euvat_get_country() ;
-		$opt_vatfreeurl = get_option("euvat_vatfreeurl") ;
-		$opt_needvaturl = get_option("euvat_needvaturl") ;
+		$opt_vatfreeurl = get_option("euvat_vatfreeurl_m") ;
+		$opt_needvaturl = get_option("euvat_needvaturl_m") ;
 		$opt_ukvat = get_option("euvat_ukvat") ;
 		$opt_confirm = get_option("euvat_confirm") ;
 		$opt_confirmslug_id = get_option("euvat_confirmslug_id") ;
+		$product = euvat_which_product() ;
 
-		if ($opt_vatfreeurl == false || $opt_needvaturl == false) {
-			wp_die( __("Redirects have not been set.  Please visit the settings page to set up EU VAT Redirect") ) ;
+		// Confirm if urls exist for the product.
+		if (!isset($opt_vatfreeurl[$product]) || !isset($opt_needvaturl[$product])) {
+			wp_die( __("Redirects have not been set for product '".$product."'.") ) ;
 		} 
 
-		if (euvat_validateurl($opt_vatfreeurl) == false || euvat_validateurl($opt_needvaturl) == false) {
-			wp_die( __("One or more of the URLs is not valid.  Please visit the EU VAT Redirect settings page to correct") ) ;
+		// Confirm our URLs are valid
+		if (euvat_validateurl($opt_vatfreeurl[$product]) == false|| euvat_validateurl($opt_needvaturl[$product]) == false) {
+			wp_die( __("One or more of the URLs is not valid for product '".$product."'.") ) ;
 		}
+
+		// 
 		if ($opt_ukvat == "true") {
 			$countriesInEU = array_diff($countriesInEU,array("GB")) ;
 		}
 		if ($opt_confirmslug_id == false) {
-			wp_die( __("Cannot find location confirmation page.  Please deactivate and re-activate EU VAT Redirect to correct") ) ;
+			wp_die( __("Cannot find location confirmation page.") ) ;
 		}
 
 		if (in_array($countrycode,$countriesInEU)) {
-			wp_redirect($opt_needvaturl) ;
+			wp_redirect($opt_needvaturl[$product]) ;
 			exit() ;
 		} else {
 			if ($opt_confirm == "true") {
-				wp_redirect(get_permalink($opt_confirmslug_id)) ;
+				wp_redirect(add_query_arg( 'product', rawurlencode($product), get_permalink($opt_confirmslug_id) )) ;
 			} else {
-				wp_redirect($opt_vatfreeurl) ;
+				wp_redirect($opt_vatfreeurl[$product]) ;
 			}
 			exit() ; 
 		}
@@ -152,16 +179,19 @@ function euvat_redirect_template($template) {
 // Location confirmation page shortcodes
 
 function euvat_non_eu_url( $atts ) {
-	$opt_vatfreeurl = get_option("euvat_vatfreeurl") ;
-	$opt_needvaturl = get_option("euvat_needvaturl") ;
+	$opt_vatfreeurl = get_option("euvat_vatfreeurl_m") ;
+	$opt_needvaturl = get_option("euvat_needvaturl_m") ;
 	$opt_ukvat = get_option("euvat_ukvat") ;
 
-	if ($opt_vatfreeurl == false || $opt_needvaturl == false) {
-		wp_die( __("Redirects have not been set.  Please visit the settings page to set up EU VAT Redirect") ) ;
-	} 
+	$product = euvat_which_product() ;
 
-	if (euvat_validateurl($opt_vatfreeurl) == false || euvat_validateurl($opt_needvaturl) == false) {
-		wp_die( __("One or more of the URLs is not valid.  Please visit the EU VAT Redirect settings page to correct") ) ;
+	// Confirm if urls exist for the product.
+	if (!isset($opt_vatfreeurl[$product]) || !isset($opt_needvaturl[$product])) {
+		wp_die( __("Redirects have not been set for product '".$product."'.") ) ;
+	} 
+	// Confirm our URLs are valid
+	if (euvat_validateurl($opt_vatfreeurl[$product]) == false|| euvat_validateurl($opt_needvaturl[$product]) == false) {
+		wp_die( __("One or more of the URLs is not valid for product '".$product."'.") ) ;
 	}
 
 	if ($opt_ukvat == "true") {
@@ -174,19 +204,22 @@ function euvat_non_eu_url( $atts ) {
 			'text' => $default_link_text,
 		), $atts )
 	);
-	return '<a href="'.$opt_vatfreeurl.'">'.$text.'</a>' ;
+	return '<a href="'.$opt_vatfreeurl[$product].'">'.$text.'</a>' ;
 }
 function euvat_eu_url( $atts ) {
-	$opt_vatfreeurl = get_option("euvat_vatfreeurl") ;
-	$opt_needvaturl = get_option("euvat_needvaturl") ;
+	$opt_vatfreeurl = get_option("euvat_vatfreeurl_m") ;
+	$opt_needvaturl = get_option("euvat_needvaturl_m") ;
 	$opt_ukvat = get_option("euvat_ukvat") ;
 
-	if ($opt_vatfreeurl == false || $opt_needvaturl == false) {
-		wp_die( __("Redirects have not been set.  Please visit the settings page to set up EU VAT Redirect") ) ;
-	} 
+	$product = euvat_which_product() ;
 
-	if (euvat_validateurl($opt_vatfreeurl) == false || euvat_validateurl($opt_needvaturl) == false) {
-		wp_die( __("One or more of the URLs is not valid.  Please visit the EU VAT Redirect settings page to correct") ) ;
+	// Confirm if urls exist for the product.
+	if (!isset($opt_vatfreeurl[$product]) || !isset($opt_needvaturl[$product])) {
+		wp_die( __("Redirects have not been set for product '".$product."'.") ) ;
+	} 
+	// Confirm our URLs are valid
+	if (euvat_validateurl($opt_vatfreeurl[$product]) == false|| euvat_validateurl($opt_needvaturl[$product]) == false) {
+		wp_die( __("One or more of the URLs is not valid for product '".$product."'.") ) ;
 	}
 
 	if ($opt_ukvat == true) {
@@ -199,23 +232,23 @@ function euvat_eu_url( $atts ) {
 			'text' => $default_link_text,
 		), $atts )
 	);
-	return '<a href="'.$opt_needvaturl.'">'.$text.'</a>' ;
+	return '<a href="'.$opt_needvaturl[$product].'">'.$text.'</a>' ;
 }
 
+
 function euvat_countrydetect( $atts ) {
+	extract( shortcode_atts(
+		array(
+			'product_id' => "init" 
+		), $atts )
+	);
+
 	$opt_locationslugid = get_option("euvat_locationslug_id") ;
 
-	if($opt_locationslugid) {
-		$the_page = get_posts(
-			Array(
-				'ID' => $opt_locationslugid ,
-				'post_type' => 'page' ,
-			)
-		) ;
-	} else {
-		$the_page == false ;
+	if(isset($opt_locationslugid)) {
+		return add_query_arg('product',rawurlencode(sanitize_text_field($product_id)),get_permalink($opt_locationslugid)) ;
 	}
-	return get_permalink($the_page->ID) ;
+	
 }
 
 add_shortcode( 'euvat_countrydetect', 'euvat_countrydetect' );
@@ -225,168 +258,6 @@ add_shortcode( 'euvat_eu_url', 'euvat_eu_url' );
 
 
 
-
-// Admin interface
-
-add_action( 'admin_menu', 'euvat_admin_menu' );
-function euvat_admin_menu() {
-	add_options_page( 'EU VAT Redirect', 'EU VAT Redirect', 'manage-options','eu-vat-redirect', 'euvat_admin_options' );
-}
-
-function euvat_admin_options() {
-	if ( !current_user_can( 'manage_options' ) )  {
-		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
-	}
-	
-	$opt_vatfreeurl = get_option("euvat_vatfreeurl") ;
-	$opt_needvaturl = get_option("euvat_needvaturl") ;
-	$opt_ukvat = get_option("euvat_ukvat") ;
-	$opt_locationslug = get_option("euvat_locationslug") ; 
-	$opt_locationslugid = get_option("euvat_locationslug_id") ;
-	$opt_confirm = get_option("euvat_confirm") ;
-	$opt_confirmslug = get_option("euvat_confirmslug") ;
-	$opt_confirmslugid = get_option("euvat_confirmslug_id");
-
-    	if (isset($_POST['euvat_hidden']) && $_POST['euvat_hidden'] == 'Y') {
-		if (isset($_POST['euvat_vatfreeurl'])) {
-			$opt_vatfreeurl = sanitize_text_field($_POST['euvat_vatfreeurl']) ;
-			update_option("euvat_vatfreeurl",$opt_vatfreeurl) ;
-		}
-		if (isset($_POST['euvat_needvaturl'])) {
-			$opt_needvaturl = sanitize_text_field($_POST["euvat_needvaturl"]) ;
-			update_option("euvat_needvaturl",$opt_needvaturl) ;
-		}
-		if (isset($_POST['euvat_ukvat'])) {
-			$opt_ukvat = $_POST["euvat_ukvat"] ;
-		} else { 
-			$opt_ukvat = false ;
-		}
-		update_option("euvat_ukvat",$opt_ukvat) ;
-		if (isset($_POST['euvat_locationslug']) && $_POST['euvat_locationslug'] != "") {
-			$opt_locationslug = sanitize_title($_POST["euvat_locationslug"]) ;
-			$newslug = $opt_locationslug ;
-		} else {
-			$opt_locationslug = "" ;
-			$newslug = "location-detect" ;
-		}
-		update_option("euvat_locationslug",$opt_locationslug) ;
-		if ($opt_locationslugid) {
-			$the_page = get_posts(
-				Array(
-					'ID' => $opt_locationslugid ,
-					'post_type' => 'page' ,
-				)
-			) ;
-			if ($the_page) {
-				wp_update_post(
-					array (
-       						'ID' => $opt_locationslugid ,
-       						'post_name' => $newslug ,
-				));
-			} else {
-				echo '<div class="error"><p><strong>'.__("Cannot find the redirect page.  Has it been deleted?  Please deactivate and re-activate this plugin to restore.","euvat")."</strong></p></div>" ;
-			}
-		}
-
-		if (isset($_POST['euvat_confirm'])) {
-			$opt_confirm = $_POST["euvat_confirm"] ;
-		} else { 
-			$opt_confirm = false ;
-		}
-		update_option("euvat_confirm",$opt_confirm) ;
-
-
-		if (isset($_POST['euvat_confirmslug']) && $_POST['euvat_confirmslug'] != "") {
-			$opt_confirmslug = sanitize_title($_POST["euvat_confirmslug"]) ;
-			$newslug = $opt_confirmslug ;
-		} else {
-			$opt_confirmslug = "" ;
-			$newslug = "confirm-location" ;
-		}
-		update_option("euvat_confirmslug",$opt_confirmslug) ;
-
-
-		if ($opt_confirmslugid) {
-			$the_page = get_posts(
-				Array(
-					'ID' => $opt_confirmslugid ,
-					'post_type' => 'page' ,
-				)
-			) ;
-			if ($the_page) {
-				wp_update_post(
-					array (
-       						'ID' => $opt_confirmslugid ,
-       						'post_name' => $newslug ,
-				));
-			} else {
-				echo '<div class="error"><p><strong>'.__("Cannot find the location confirmation page.  Has it been deleted?  Please deactivate and re-activate this plugin to restore.","euvat")."</strong></p></div>" ;
-			}
-		}
-
-
-
-		echo '<div class="updated"><p><strong>'.__('Your settings have been saved.', 'euvat' ).'</strong></p></div>';
-    	}
-
-
-	if (euvat_validateurl($opt_vatfreeurl) == false || euvat_validateurl($opt_needvaturl) == false) {
-		echo '<div class="error"><p><strong>'. __('One or more of the URLs is not valid.  Please correct this below.','euvat').'</strong></p></div>' ;
-	}
-
-
-    	// Now display the settings editing screen
-	echo '<div class="wrap">';
-	echo "<h2>" . __( 'EU VAT Redirect', 'euvat' ) . "</h2>";
-    
-	?>
-
-	<form name="euvat" method="post" action="">
-
-	<p><strong><?php _e("Non-EU Payment URL",'euvat') ; ?></strong><br/>
-	<?php _e("URL for people who are not liable to pay any VAT (e.g. people outside the EU.)  Please include <code>http://</code> at the start.", 'euvat' ); ?> <br/>
-	<input type="text" name="euvat_vatfreeurl" value="<?php echo $opt_vatfreeurl; ?>" size="50" />
-	</p>
-
-	<p><strong><?php _e("EU Payment URL",'euvat') ; ?></strong><br/>
-	<?php _e("URL for people who are liable to pay any VAT (e.g. people inside the EU.)  Please include <code>http://</code> at the start.  This will also be used if there is any doubt about the user's country of origin.",'euvat') ; ?><br />
-	<input type="text" name="euvat_needvaturl" value="<?php echo $opt_needvaturl; ?>" size="50" />
-	</p>
-
-	<p><strong><?php _e("Treat UK as VAT free",'euvat') ; ?></strong><br/>
-	<input type="checkbox" name="euvat_ukvat" value="true" <?php if ($opt_ukvat == "true") { echo "checked" ; } ?> /> 
-	<?php _e("Treat people in the UK as not being liable for VAT.  Tick this box if you are in the UK, are below the UK VAT threshold, and wish to treat sales in the UK as being VAT free.","euvat") ; ?></p>
-
-	<p><strong><?php _e("Page Name For Redirect Page","euvat") ; ?></strong><br/>
-	<?php _e("By default, the URL for the location detection page is <code>".get_site_url()."/location-detect</code>.  To change this, enter a new name in the box below.  If you leave this blank, the default will be used.  This page will not be visible to visitors - it simply redifects to the correct URL you have set above.","euvat") ; ?><br/>
-	<?php echo get_site_url() ; ?>/<input type="text" name="euvat_locationslug" value="<?php echo $opt_locationslug ; ?>" size="50" /></p>
-
-	<p><strong><?php _e("Confirm Location") ; ?></strong><br/>
-	<input type="checkbox" name="euvat_confirm" value="true" <?php if ($opt_confirm == "true") { echo "checked" ; } ?> />
-	<?php _e("Ask visitors to confirm whether they are in the EU or not.  When enabled, anyone who is believed to be outside the EU, will be asked to confirm if they are actually in the EU or not.  This can be used as a failsafe step to ensure that EU visitors are sent through to the 'VAT To Be Paid' URL.","euvat") ; ?></p>
-
-	<p><strong><?php _e("Page Name For Confirm Location Page","euvat") ; ?></strong><br/>
-	<?php _e("By default, the URL for the confirm location page is <code>".get_site_url()."/confirm-location</code>.  To change this, enter a new name in the box below.  If you leave this blank, the default will be used.","euvat") ; ?><br/>
-	<?php echo get_site_url() ; ?>/<input type="text" name="euvat_confirmslug" value="<?php echo $opt_confirmslug ; ?>" size="50" /></p>
-
-	<p class="submit">
-	<input type="submit" name="Submit" class="button-primary" value="<?php esc_attr_e('Save Changes') ?>" />
-	<input type="hidden" name="euvat_hidden" value="Y">
-	</p>
-</form>
-<hr/>
-<p>Found this plugin useful?</p>
-<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-<input type="hidden" name="cmd" value="_s-xclick">
-<input type="hidden" name="hosted_button_id" value="Z945V82JAKG4W">
-<input type="image" src="https://www.paypalobjects.com/en_US/GB/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal – The safer, easier way to pay online.">
-<img alt="" border="0" src="https://www.paypalobjects.com/en_GB/i/scr/pixel.gif" width="1" height="1">
-</form>
-<hr>
-<p>This plugin includes GeoLite data created by MaxMind, available from
-<a href="http://www.maxmind.com">http://www.maxmind.com</a>.</p>
-</div>
-<?php } 
 
 
 
