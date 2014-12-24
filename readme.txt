@@ -29,6 +29,8 @@ b) using a payment processor that blocks sales of countries subject to VAT and o
 
 Features include:
 
+* Ability to configure multiple products, each with their own purchase links.
+
 * Treat UK as VAT free.  Business in the UK who are below the VAT threshold are not required to charge VAT to UK buyers on digital purchases.  Those UK business to which this applies to can select this option, and send all UK users to the cheaper payment processor (i.e. treat them as non-EU buyers).
 
 * "Confirm my location" page - when enabled, an interstitial ('gateway') page is shown to any user EU VAT Redirect determines has an IP address outside of the EU.  The page asks the user to confirm if they are in the EU or not by selecting from a choice of two links, before directing them to the correct payment processor.
@@ -45,13 +47,17 @@ Basic installation is as follows:
 
 1) Install and activate the plugin in the normal way.  When activated, EU VAT Redirect will create two new pages called "EU VAT Redirect" and "Confirm Your Location".  
 
-2) Go to 'Settings' then 'EU VAT Redirect' to setup the plugin.  You will need the URLs for the two different payment processors you wish to use, for example, the buy button link to PayPal or FastSpring (these are just examples). You can also set other options on this page.
+2) Go to 'Settings' then 'EU VAT Redirect' to setup the plugin.  For each product, you will need to provide an ID and you will need the URLs for the two different payment processors you wish to use, for example, the buy button link to PayPal or FastSpring (these are just examples).  You can also set other options on this page.
 
-3) In your "Buy Now" links, change the URL to the Wordpress shortcode [euvat_locationdetect].  When published, this will provide a link to a page (called 'location-detect' by default) where the user's IP address is checked, and the user is then redirected to the right payment processor.
+3) In your "Buy Now" links, change the URL to the Wordpress shortcode shown on the Settings page.  When published, this will provide a link to a page (called 'location-detect' by default) where the user's IP address is checked, and the user is then redirected to the right payment processor.
 
 And that's it.  
 
 == Frequently Asked Questions ==
+
+= Q. Can I set up multiple products? = 
+
+As of version 1.1, you can.
 
 = Q. How reliable is the location detection? =
 
@@ -65,7 +71,7 @@ The country detection is only done when the user clicks on your buy link.  To en
 
 = Q. Can I put the buy link anywhere on my site? =
 
-The buy link is a shortcode ([euvat_locationdetect]), so can be placed anywhere in a content field / body of a page.  
+The buy link is a shortcode, so can be placed anywhere in a content field / body of a page.  You can find the shortcode for the products you have set up, listed on the settings page.
 
 = Q. What happens if the plugin can't determine the country the user is in? =
 
@@ -89,7 +95,7 @@ Note that if buyer whose country of residence is within the EU is using an IP ad
 
 There are two ways.  Firstly, you can simulate how the plugin behaves for a particular country.  To do this, you need an IP address for a domain registered in a particular country.  You can find an IP address for any website using an online service like http://ip-lookup.net/domain.php, which will convert a website domain name into an IP address for you.  In the plugin examples folder is a list of IP addresses for each EU country, which we used for our own testing.  
 
-Once you have an IP address, you can use it directly on the Country Detect page, by calling it in this way: http://name-of-your-site.com/location-detect?ip=[ipaddress], where [ipaddress] is an IP address for a particular website. 
+Once you have an IP address, you can use it directly on the Country Detect page, by calling it in this way: http://name-of-your-site.com/location-detect?ip=[ipaddress]&product=[product id], where [ipaddress] is an IP address for a particular website, and [product id] is your product ID.
 
 Alternatively, you can use a commercial service like WonderProxy which allows you to test your website across multiple countries.
 
