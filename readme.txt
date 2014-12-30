@@ -3,7 +3,7 @@ Contributors: andrewpaulbowden
 Tags: vatmoss, EUvat, European Union, VAT, tax, geo location, payment processors, redirect, redirection, IP
 Donate link: http://andrewbowden.me.uk/donate
 Requires at least: 3.5
-Tested up to: 4.0.1
+Tested up to: 4.1
 Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -150,6 +150,10 @@ Are you using Multisite, and the Wordpress MU Domain Mapping plugin?  If so, a f
 3. Example of customised "Confirm Location" page text and links 
 
 == Changelog ==
+
+= 1.1.1. =
+
+* Confirmed compatability with Wordpress 4.1
 
 = 1.1.0 =
 
