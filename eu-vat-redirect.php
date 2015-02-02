@@ -357,3 +357,43 @@ function euvat_deactivation() {
 	}
 	wp_clear_scheduled_hook("euvat_update_geoip");
 }
+
+
+
+// Update GeoIP database
+
+add_filter('cron_schedules','euvat_cron_definer');    
+function euvat_cron_definer($schedules) {  
+	$schedules['monthly'] = array(      
+		'interval'=> 2678400, 
+		'display'=>  __('Once Every 31 Days')  
+	);  
+	return $schedules;
+}
+
+add_action( 'wp', 'euvat_setup_cron' );
+function euvat_setup_cron() {
+	if (!wp_next_scheduled('euvat_update_geoip') ) {
+		wp_schedule_event( time(), 'monthly', 'euvat_update_geoip');
+
+	}
+}
+add_action('euvat_update_geoip', 'euvat_download_geoip_db' );
+
+function euvat_download_geoip_db() {
+	$geoipfile = 'http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz' ;
+	$geoipfileipv6 = 'http://geolite.maxmind.com/download/geoip/database/GeoIPv6.dat.gz' ;
+	$dir = plugin_dir_path(__FILE__);	
+
+
+	$data = fopen('compress.zlib://'.$geoipfile,"r");
+	$write = file_put_contents($dir.'db/GeoIP.dat', $data);
+	fclose($data) ;
+
+	$dataipv6 = fopen('compress.zlib://'.$geoipfileipv6,"r");
+	$writeipv6 = file_put_contents($dir.'db/GeoIPv6.dat', $dataipv6);
+	fclose($dataipv6) ;
+
+	update_option("euvat_db_update",date("d M Y") ) ;
+}
+
