@@ -355,4 +355,5 @@ function euvat_deactivation() {
 		delete_option("euvat_locationslug_id") ;
 
 	}
+	wp_clear_scheduled_hook("euvat_update_geoip");
 }

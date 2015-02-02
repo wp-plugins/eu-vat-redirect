@@ -305,6 +305,15 @@ This plugin is free to use, however if you do find it useful, please do consider
 </form>
 <hr>
 <p><?php _e('This plugin includes GeoLite data created by MaxMind, available from <a href="http://www.maxmind.com">http://www.maxmind.com</a>.</p>') ?></p>
+<p><?php _e('Database last updated on ') ; 
+
+$euvat_db_update = get_option("euvat_db_update") ;
+if ($euvat_db_update) {
+	echo $euvat_db_update ;
+} else { 
+	echo "24 December 2014" ;
+}
+?></p>
 </div>
 <?php } 
 

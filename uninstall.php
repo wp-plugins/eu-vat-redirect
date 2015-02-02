@@ -30,7 +30,8 @@ if ( !is_multisite() )  {
 	delete_option("euvat_confirmslug") ;
 	delete_option("euvat_confirm") ;
 	delete_option("euvat_numproducts") ;
-
+	delete_option("euvat_db_update");
+	wp_clear_scheduled_hook("euvat_update_geoip");
 
 } else  {
     global $wpdb;
@@ -62,6 +63,9 @@ if ( !is_multisite() )  {
 	delete_option("euvat_confirmslug") ;
 	delete_option("euvat_confirm") ;
 	delete_option("euvat_numproducts") ;
+
+	delete_option("euvat_db_update");
+	wp_clear_scheduled_hook("euvat_update_geoip");
 
     }
 
