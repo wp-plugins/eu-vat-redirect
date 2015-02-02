@@ -327,7 +327,7 @@ function euvat_activation() {
 		// It exists!  Lets make sure it's published.
 		$the_page2_id = $the_page2[0]->ID ;
 		$the_page2[0]->post_status = 'publish' ;
-		$the_page2_id = wp_update_post($the_page2);
+		$the_page2_id = wp_update_post($the_page2[0]);
 		update_option("euvat_confirmslug_id",$the_page2_id) ;
 	} else {
 		$newpage = array() ;
