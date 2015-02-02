@@ -4,7 +4,7 @@ Tags: vatmoss, EUvat, European Union, VAT, tax, geo location, payment processors
 Donate link: http://andrewbowden.me.uk/donate
 Requires at least: 3.5
 Tested up to: 4.1
-Stable tag: 1.1.0
+Stable tag: 1.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -79,7 +79,11 @@ The plugin will err on the side of caution, and assume the customer is in the EU
 
 = Q. How often is the GeoLite database updated? =
 
-The database included in this plugin is a static snapshot of the GeoLite database.  The plugin does not currently have the ability to automatically update the database.  This will be added in a future release.  Until this feature is added, the database will be updated at regular intervals as part of plugin updates.
+The latest version of the database is automatically downloaded when you activate the plugin.  After that, the plugin will update the database every 31 days.
+
+= Q. How can I tell when the GeoLite database was last updated? =
+
+The date the database was last downloaded is shown at the bottom of the EU VAT Redirect plugin's settings screen in Wordpress.
 
 = Q. Can I customise the "Confirm Location" gateway page? =
 
@@ -151,7 +155,13 @@ Are you using Multisite, and the Wordpress MU Domain Mapping plugin?  If so, a f
 
 == Changelog ==
 
-= 1.1.1. =
+= 1.2.0 =
+
+* Added automatic downloading of latest GeoIP databases on plugin activation
+* Added scheduled job which then downloads the latest GeoIP databases every 31 days.
+* Fixes several minor bugs during plugin activation
+
+= 1.1.1 =
 
 * Confirmed compatability with Wordpress 4.1
 
@@ -177,6 +187,10 @@ Are you using Multisite, and the Wordpress MU Domain Mapping plugin?  If so, a f
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.2.0 =
+
+* Now automatically downloads the latest GeoIP database when the plugin is activated, and then every 31 days.  This update will help ensure your site is always using the most up to date GeoIP database.
 
 = 1.1.0 =
 

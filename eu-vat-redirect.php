@@ -3,7 +3,7 @@
  * Plugin Name: EU VAT Redirect
  * Plugin URI: http://andrewbowden.me.uk/wordpress/eu-vat-redirect
  * Description: Allows you to set buy links differently for visitors from the EU and outside the EU, for VAT purposes.
- * Version: 1.1.0
+ * Version: 1.2.0
  * Author: Andrew Bowden
  * Author URI: http://andrewbowden.me.uk/
  * License: GPL2 or later
@@ -32,10 +32,8 @@ Snags list
 2) if someone deletes the redirect page, it is not re-created unless they activate/deactivate the plugin
 
 Things to do
-1) check uninstall script works
-2) document
-3) seeing as we have the ID for the redirect page, we probably should work out the slug from than at all times (i.e. on the settings page), rather than store a variable
-4) split out into seperate files for clarity 
+1) seeing as we have the ID for the redirect page, we probably should work out the slug from than at all times (i.e. on the settings page), rather than store a variable
+2) split out into seperate files for clarity 
 */
 defined('ABSPATH') or die("Your name's not down, you're not coming in");
 
